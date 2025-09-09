@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Deck</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        input[type="text"], input[type="url"], textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        
+        textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 10px 10px 0;
+        }
+        
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #545b62;
+        }
+        
+        .help-text {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .success-message {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .error-message {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Add New Deck</h1>
+        
+        <div class="success-message" id="successMessage">
+            Deck saved successfully!
+        </div>
+        
+        <div class="error-message" id="errorMessage">
+            Error saving deck. Please try again.
+        </div>
+        
+        <form id="deckForm">
+            <div class="form-group">
+                <label for="deckName">Deck Name *</label>
+                <input type="text" id="deckName" name="deckName" required>
+                <div class="help-text">Enter a unique name for this deck</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="version">Version</label>
+                <input type="text" id="version" name="version" placeholder="1.0">
+                <div class="help-text">Version number for this deck iteration</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="dreambornLink">Dreamborn Link</label>
+                <input type="url" id="dreambornLink" name="dreambornLink" placeholder="https://dreamborn.ink/...">
+                <div class="help-text">Link to the deck on Dreamborn</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="guideLink">Guide Link</label>
+                <input type="url" id="guideLink" name="guideLink" placeholder="https://...">
+                <div class="help-text">Link to deck guide or strategy article</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="cardList">Card List</label>
+                <textarea id="cardList" name="cardList" placeholder="4x Mickey Mouse - Brave Little Tailor
+3x Elsa - Snow Queen
+2x Beast - Hardheaded
+..."></textarea>
+                <div class="help-text">Enter the card list, one card per line in format: Quantity x Card Name</div>
+            </div>
+            
+            <div>
+                <button type="submit" class="btn btn-primary">Save Deck</button>
+                <button type="button" class="btn btn-secondary" onclick="window.location.href='decks.html'">Cancel</button>
+            </div>
+        </form>
+    </div>
+    
+    <script src="deck-entry.js"></script>
+</body>
+</html>
