@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Data Entry</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-left: 4px solid #007bff;
+            background-color: #f8f9fa;
+        }
+        
+        .section h3 {
+            margin-top: 0;
+            color: #007bff;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        select, input[type="number"], textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        textarea {
+            height: 80px;
+            resize: vertical;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background-color: #218838;
+        }
+        
+        .btn-winner {
+            flex: 1;
+            padding: 15px;
+            font-size: 18px;
+        }
+        
+        .winner-buttons {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .winner-p1 {
+            background-color: #dc3545;
+            color: white;
+        }
+        
+        .winner-p1:hover {
+            background-color: #c82333;
+        }
+        
+        .winner-p2 {
+            background-color: #17a2b8;
+            color: white;
+        }
+        
+        .winner-p2:hover {
+            background-color: #138496;
+        }
+        
+        .selected {
+            background-color: #28a745 !important;
+        }
+        
+        .deck-selection {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+        
+        .deck-button {
+            padding: 12px 16px;
+            border: 2px solid #007bff;
+            border-radius: 8px;
+            background-color: white;
+            cursor: pointer;
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s;
+            min-width: 120px;
+            flex: 0 0 auto;
+        }
+        
+        .deck-button:hover {
+            background-color: #f8f9fa;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .deck-button.selected {
+            background-color: #007bff;
+            color: white;
+        }
+        
+        .deck-selection-container {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .deck-column {
+            flex: 1;
+        }
+        
+        .deck-column h4 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+        
+        .mulligan-columns {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .notes-columns {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .notes-column {
+            flex: 1;
+        }
+        
+        .mulligan-column {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .mulligan-buttons {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .mulligan-btn {
+            padding: 6px 8px;
+            border: 2px solid #007bff;
+            border-radius: 4px;
+            background-color: white;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            min-width: 32px;
+            transition: all 0.3s;
+        }
+        
+        .mulligan-btn:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .mulligan-btn.selected {
+            background-color: #007bff;
+            color: white;
+        }
+        
+        .satisfaction-buttons {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        
+        .satisfaction-btn {
+            padding: 6px 10px;
+            border: 2px solid #6c757d;
+            border-radius: 4px;
+            background-color: white;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s;
+            min-width: 40px;
+        }
+        
+        .satisfaction-btn:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .satisfaction-btn.selected {
+            background-color: #6c757d;
+            color: white;
+        }
+        
+        .satisfaction-btn.good {
+            border-color: #28a745;
+        }
+        
+        .satisfaction-btn.good.selected {
+            background-color: #28a745;
+        }
+        
+        .satisfaction-btn.bad {
+            border-color: #dc3545;
+        }
+        
+        .satisfaction-btn.bad.selected {
+            background-color: #dc3545;
+        }
+        
+        .stat-buttons {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-btn {
+            padding: 4px 8px;
+            border: 2px solid #007bff;
+            border-radius: 4px;
+            background-color: white;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            min-width: 28px;
+            transition: all 0.3s;
+        }
+        
+        .stat-btn:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .stat-btn.selected {
+            background-color: #007bff;
+            color: white;
+        }
+        
+        .lore-input {
+            width: 60px;
+            padding: 8px;
+            border: 2px solid #007bff;
+            border-radius: 4px;
+            font-size: 16px;
+            text-align: center;
+        }
+        
+        .lore-input.winner {
+            background-color: #d4edda;
+            border-color: #28a745;
+        }
+        
+        #gameForm {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Game Data Entry</h1>
+        
+        <form id="gameForm">
+            <div class="section">
+                <h3>Game Setup</h3>
+                
+                <div class="deck-selection-container">
+                    <div class="deck-column">
+                        <h4 id="deckALabel">Deck A</h4>
+                        <div id="deckASelection" class="deck-selection">
+                        </div>
+                    </div>
+                    
+                    <div class="deck-column">
+                        <h4 id="deckBLabel">Deck B</h4>
+                        <div id="deckBSelection" class="deck-selection">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mulligan-columns" style="margin-top: 20px;">
+                    <div class="mulligan-column">
+                        <label id="deckAMulliganLabel">Deck A Mulligan:</label>
+                        <div class="mulligan-buttons" id="deckAMulliganButtons">
+                            <button type="button" class="mulligan-btn selected" onclick="selectMulligan('A', 0, this)">0</button>
+                            <button type="button" class="mulligan-btn" onclick="selectMulligan('A', 1, this)">1</button>
+                            <button type="button" class="mulligan-btn" onclick="selectMulligan('A', 2, this)">2</button>
+                            <button type="button" class="mulligan-btn" onclick="selectMulligan('A', 3, this)">3</button>
+                            <button type="button" class="mulligan-btn" onclick="selectMulligan('A', 4, this)">4</button>
+                            <button type="button" class="mulligan-btn" onclick="selectMulligan('A', 5, this)">5</button>
+                            <button type="button" class="mulligan-btn" onclick="selectMulligan('A', 6, this)">6</button>
+                            <button type="button" class="mulligan-btn" onclick="selectMulligan('A', 7, this)">7</button>
+                        </div>
+                        <label>Hand Satisfaction:</label>
+                        <div class="satisfaction-buttons" id="deckASatisfactionButtons">
+                            <button type="button" class="satisfaction-btn good selected" onclick="selectSatisfaction('A', 'good', this)" id="deckAHandGood">😍</button>
+                            <button type="button" class="satisfaction-btn neutral" onclick="selectSatisfaction('A', 'neutral', this)" id="deckAHandNeutral">😑</button>
+                            <button type="button" class="satisfaction-btn bad" onclick="selectSatisfaction('A', 'bad', this)" id="deckAHandBad">😰</button>
+                        </div>
+                    </div>
+                    
+                    <div class="mulligan-column">
+                        <label id="deckBMulliganLabel">Deck B Mulligan:</label>
+                        <div class="mulligan-buttons" id="deckBMulliganButtons">
+                            <button type="button" class="mulligan-btn selected" onclick="selectMulligan('B', 0, this)">0</button>
+                            <button type="button" class="mulligan-btn" onclick="selectMulligan('B', 1, this)">1</button>
+                            <button type="button" class="mulligan-btn" onclick="selectMulligan('B', 2, this)">2</button>
+                            <button type="button" class="mulligan-btn" onclick="selectMulligan('B', 3, this)">3</button>
+                            <button type="button" class="mulligan-btn" onclick="selectMulligan('B', 4, this)">4</button>
+                            <button type="button" class="mulligan-btn" onclick="selectMulligan('B', 5, this)">5</button>
+                            <button type="button" class="mulligan-btn" onclick="selectMulligan('B', 6, this)">6</button>
+                            <button type="button" class="mulligan-btn" onclick="selectMulligan('B', 7, this)">7</button>
+                        </div>
+                        <label>Hand Satisfaction:</label>
+                        <div class="satisfaction-buttons" id="deckBSatisfactionButtons">
+                            <button type="button" class="satisfaction-btn good selected" onclick="selectSatisfaction('B', 'good', this)" id="deckBHandGood">😍</button>
+                            <button type="button" class="satisfaction-btn neutral" onclick="selectSatisfaction('B', 'neutral', this)" id="deckBHandNeutral">😑</button>
+                            <button type="button" class="satisfaction-btn bad" onclick="selectSatisfaction('B', 'bad', this)" id="deckBHandBad">😰</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>Game Notes</h3>
+                
+                <div class="form-group">
+                    <label for="gameNotes">Notes:</label>
+                    <textarea id="gameNotes" placeholder="Notes about the game, decks, strategy, etc..."></textarea>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>Post-Game Results</h3>
+                
+                <div class="form-group">
+                    <label>Winner:</label>
+                    <div class="winner-buttons">
+                        <button type="button" class="btn btn-winner winner-p1" onclick="selectWinner('DeckA')" id="deckAWinnerButton">Deck A Wins</button>
+                        <button type="button" class="btn btn-winner winner-p2" onclick="selectWinner('DeckB')" id="deckBWinnerButton">Deck B Wins</button>
+                    </div>
+                </div>
+                
+                <div class="mulligan-columns">
+                    <div class="mulligan-column">
+                        <h4 id="deckAEndGameLabel">Deck A End Game</h4>
+                        <div class="form-group">
+                            <label id="deckAInkLabel">Ending Ink:</label>
+                            <div class="stat-buttons" id="deckAInkButtons">
+                                <button type="button" class="stat-btn selected" onclick="selectInk('A', 3, this)">3</button>
+                                <button type="button" class="stat-btn" onclick="selectInk('A', 4, this)">4</button>
+                                <button type="button" class="stat-btn" onclick="selectInk('A', 5, this)">5</button>
+                                <button type="button" class="stat-btn" onclick="selectInk('A', 6, this)">6</button>
+                                <button type="button" class="stat-btn" onclick="selectInk('A', 7, this)">7</button>
+                                <button type="button" class="stat-btn" onclick="selectInk('A', 8, this)">8</button>
+                                <button type="button" class="stat-btn" onclick="selectInk('A', 9, this)">9</button>
+                                <button type="button" class="stat-btn" onclick="selectInk('A', 10, this)">10</button>
+                                <button type="button" class="stat-btn" onclick="selectInk('A', 11, this)">10+</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label id="deckALoreLabel">Ending Lore:</label>
+                            <input type="number" id="deckALore" class="lore-input" min="0" max="20" value="0">
+                        </div>
+                        <label>Game Satisfaction:</label>
+                        <div class="satisfaction-buttons" id="deckAEndSatisfactionButtons">
+                            <button type="button" class="satisfaction-btn good selected" onclick="selectEndSatisfaction('A', 'good', this)" id="deckAEndGood">😊</button>
+                            <button type="button" class="satisfaction-btn neutral" onclick="selectEndSatisfaction('A', 'neutral', this)" id="deckAEndNeutral">😐</button>
+                            <button type="button" class="satisfaction-btn bad" onclick="selectEndSatisfaction('A', 'bad', this)" id="deckAEndBad">😞</button>
+                        </div>
+                    </div>
+                    
+                    <div class="mulligan-column">
+                        <h4 id="deckBEndGameLabel">Deck B End Game</h4>
+                        <div class="form-group">
+                            <label id="deckBInkLabel">Ending Ink:</label>
+                            <div class="stat-buttons" id="deckBInkButtons">
+                                <button type="button" class="stat-btn selected" onclick="selectInk('B', 3, this)">3</button>
+                                <button type="button" class="stat-btn" onclick="selectInk('B', 4, this)">4</button>
+                                <button type="button" class="stat-btn" onclick="selectInk('B', 5, this)">5</button>
+                                <button type="button" class="stat-btn" onclick="selectInk('B', 6, this)">6</button>
+                                <button type="button" class="stat-btn" onclick="selectInk('B', 7, this)">7</button>
+                                <button type="button" class="stat-btn" onclick="selectInk('B', 8, this)">8</button>
+                                <button type="button" class="stat-btn" onclick="selectInk('B', 9, this)">9</button>
+                                <button type="button" class="stat-btn" onclick="selectInk('B', 10, this)">10</button>
+                                <button type="button" class="stat-btn" onclick="selectInk('B', 11, this)">10+</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label id="deckBLoreLabel">Ending Lore:</label>
+                            <input type="number" id="deckBLore" class="lore-input" min="0" max="20" value="0">
+                        </div>
+                        <label>Game Satisfaction:</label>
+                        <div class="satisfaction-buttons" id="deckBEndSatisfactionButtons">
+                            <button type="button" class="satisfaction-btn good selected" onclick="selectEndSatisfaction('B', 'good', this)" id="deckBEndGood">😊</button>
+                            <button type="button" class="satisfaction-btn neutral" onclick="selectEndSatisfaction('B', 'neutral', this)" id="deckBEndNeutral">😐</button>
+                            <button type="button" class="satisfaction-btn bad" onclick="selectEndSatisfaction('B', 'bad', this)" id="deckBEndBad">😞</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="button-group">
+                <button type="submit" class="btn btn-success">Save Game Data</button>
+                <button type="button" class="btn btn-primary" onclick="resetForm()">Start Another Game</button>
+                <a href="/" class="btn btn-primary">View All Games</a>
+            </div>
+        </form>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
